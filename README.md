@@ -10,6 +10,33 @@ A premium AI-powered gym exercise tracker with an Apple-style glass morphism UI.
 
 ---
 
+## 📸 Screenshots
+
+<table>
+  <tr>
+    <td align="center"><b>Onboarding</b></td>
+    <td align="center"><b>Goal Selection</b></td>
+    <td align="center"><b>Weekly Plan</b></td>
+  </tr>
+  <tr>
+    <td><img src="public/screenshots/01-onboarding.png" width="220"/></td>
+    <td><img src="public/screenshots/02-goal-selection.png" width="220"/></td>
+    <td><img src="public/screenshots/03-weekly-plan.png" width="220"/></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Workout Tracker</b></td>
+    <td align="center"><b>Progress Dashboard</b></td>
+    <td align="center"><b>AI Coach Chat</b></td>
+  </tr>
+  <tr>
+    <td><img src="public/screenshots/04-workout-tracker.png" width="220"/></td>
+    <td><img src="public/screenshots/05-progress.png" width="220"/></td>
+    <td><img src="public/screenshots/06-ai-coach.png" width="220"/></td>
+  </tr>
+</table>
+
+---
+
 ## ✨ Features
 
 ### 🎯 Personalized Onboarding
