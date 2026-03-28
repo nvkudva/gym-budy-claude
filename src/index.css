@@ -2,12 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── CodePen glass variables (adapted for dark theme) ─────────────────────── */
+:root {
+  --lg-bg-color: rgba(255, 255, 255, 0.07);
+  --lg-highlight: rgba(255, 255, 255, 0.20);
+  --lg-highlight-soft: rgba(255, 255, 255, 0.08);
+  --lg-shadow: 0 6px 12px rgba(0, 0, 0, 0.35), 0 0 24px rgba(0, 0, 0, 0.20);
+  --lg-bounce: cubic-bezier(0.175, 0.885, 0.32, 2.2);
+  --lg-ease: cubic-bezier(0.175, 0.885, 0.32, 1.1);
+}
+
 @layer base {
-  * {
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+  * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
   body {
     margin: 0;
@@ -21,79 +27,187 @@
   ::-webkit-scrollbar { width: 4px; height: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
-
   input[type='number']::-webkit-inner-spin-button,
   input[type='number']::-webkit-outer-spin-button { -webkit-appearance: none; }
 }
 
 @layer components {
-  /* Dark warm glass — closer to the reference design */
+
+  /* ── Core glass class: CodePen 3-layer technique via box-shadow ────────────
+     inset 1px 1px 0  → top-left specular edge (the "glass highlight")
+     inset 0 0 8px    → soft inner glow
+     outer shadows    → card depth                                            */
   .glass {
-    @apply bg-white/[0.05] backdrop-blur-xl border border-white/[0.08] rounded-2xl;
+    background: var(--lg-bg-color);
+    backdrop-filter: blur(12px) saturate(120%) brightness(1.08);
+    -webkit-backdrop-filter: blur(12px) saturate(120%) brightness(1.08);
+    border-radius: 1.25rem;
+    box-shadow:
+      inset 1px 1px 0 var(--lg-highlight),
+      inset 0 0 10px var(--lg-highlight-soft),
+      var(--lg-shadow);
+    border: none;
+    overflow: hidden;
   }
 
-  .glass-sm {
-    @apply bg-white/[0.04] backdrop-blur-md border border-white/[0.07] rounded-xl;
+  /* Rounded variant */
+  .glass-rounded {
+    border-radius: 1.75rem;
   }
 
   .glass-hover {
-    @apply hover:bg-white/[0.09] hover:border-white/[0.14] transition-all duration-300;
+    transition: all 0.4s var(--lg-bounce);
+    cursor: pointer;
+  }
+  .glass-hover:hover {
+    background: rgba(255, 255, 255, 0.10);
+    box-shadow:
+      inset 1px 1px 0 rgba(255, 255, 255, 0.28),
+      inset 0 0 14px rgba(255, 255, 255, 0.10),
+      0 10px 24px rgba(0, 0, 0, 0.45),
+      0 0 30px rgba(0, 0, 0, 0.25);
+    transform: translateY(-1px);
+  }
+  .glass-hover:active {
+    transform: scale(0.97);
+    transition: all 0.15s ease;
   }
 
   .glass-card {
-    @apply glass glass-hover shadow-lg shadow-black/40;
+    @apply glass glass-hover;
   }
 
-  /* Amber/copper primary button */
-  .btn-primary {
-    @apply px-6 py-3 rounded-2xl font-semibold text-white
-           bg-gradient-to-r from-amber-600 to-orange-600
-           hover:from-amber-500 hover:to-orange-500
-           active:scale-95 transition-all duration-200
-           shadow-lg shadow-amber-600/25;
+  /* ── Full 3-layer glass container (for GlassCard component) ─────────────── */
+  .lg-container {
+    position: relative;
+    display: flex;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    box-shadow: var(--lg-shadow);
+    transition: all 0.4s var(--lg-bounce);
   }
+  .lg-container--rounded { border-radius: 1.75rem; }
+  .lg-container:hover { transform: translateY(-1px); }
+  .lg-container:active { transform: scale(0.97); transition: all 0.15s ease; }
+
+  .lg-filter, .lg-overlay, .lg-specular {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  .lg-filter {
+    z-index: 0;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    filter: url(#lensFilter) saturate(120%) brightness(1.08);
+  }
+  .lg-overlay {
+    z-index: 1;
+    background: var(--lg-bg-color);
+  }
+  .lg-specular {
+    z-index: 2;
+    box-shadow:
+      inset 1px 1px 0 var(--lg-highlight),
+      inset 0 0 10px var(--lg-highlight-soft);
+  }
+  .lg-content {
+    position: relative;
+    z-index: 3;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Buttons ─────────────────────────────────────────────────────────────── */
+  .btn-primary {
+    @apply px-6 py-3 rounded-2xl font-semibold text-white;
+    background: linear-gradient(135deg, #d97706, #ea580c);
+    box-shadow:
+      inset 1px 1px 0 rgba(255,255,255,0.25),
+      inset 0 0 8px rgba(255,255,255,0.08),
+      0 6px 16px rgba(217,119,6,0.35),
+      0 2px 4px rgba(0,0,0,0.3);
+    transition: all 0.4s var(--lg-bounce);
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    box-shadow:
+      inset 1px 1px 0 rgba(255,255,255,0.35),
+      0 8px 24px rgba(217,119,6,0.45),
+      0 2px 6px rgba(0,0,0,0.3);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active  { transform: scale(0.95); transition: all 0.1s ease; }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
   .btn-glass {
-    @apply px-5 py-2.5 rounded-xl font-medium text-white/80 glass glass-hover
-           active:scale-95 transition-all duration-200;
+    @apply px-5 py-2.5 rounded-xl font-medium text-white/80 glass;
+    transition: all 0.4s var(--lg-bounce);
+    cursor: pointer;
   }
+  .btn-glass:hover {
+    background: rgba(255,255,255,0.10);
+    transform: translateY(-1px);
+  }
+  .btn-glass:active { transform: scale(0.95); }
 
+  /* ── Input ───────────────────────────────────────────────────────────────── */
   .input-glass {
-    @apply w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.09]
-           text-white placeholder-white/25 outline-none
-           focus:border-amber-500/50 focus:bg-white/[0.08]
-           transition-all duration-200;
+    @apply w-full px-4 py-3 rounded-xl text-white placeholder-white/25 outline-none;
+    background: rgba(255,255,255,0.05);
+    box-shadow:
+      inset 1px 1px 0 rgba(255,255,255,0.12),
+      inset 0 0 6px rgba(255,255,255,0.04);
+    border: none;
+    transition: all 0.3s var(--lg-ease);
+  }
+  .input-glass:focus {
+    background: rgba(255,255,255,0.09);
+    box-shadow:
+      inset 1px 1px 0 rgba(255,255,255,0.22),
+      inset 0 0 10px rgba(255,255,255,0.06),
+      0 0 0 2px rgba(217,119,6,0.35);
   }
 
-  .gradient-text {
-    @apply bg-clip-text text-transparent;
+  /* ── Active nav pill (CodePen .glass-item--active pattern) ──────────────── */
+  .nav-pill-active {
+    background: rgba(0, 0, 0, 0.30);
+    box-shadow:
+      inset 1px 1px 0 rgba(255,255,255,0.12),
+      inset 0 0 6px rgba(255,255,255,0.04),
+      0 2px 8px rgba(0,0,0,0.4);
+    border-radius: 1rem;
   }
 
   .tag {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
-           bg-white/[0.07] border border-white/[0.10];
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+    background: rgba(255,255,255,0.07);
+    box-shadow: inset 1px 1px 0 rgba(255,255,255,0.12);
   }
 }
 
 @layer utilities {
-  /* Warm dark background — like Oura Ring app */
+  /* Warm dark background */
   .bg-app {
     background:
-      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(210, 120, 60, 0.15) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 80% 90%, rgba(180, 80, 40, 0.10) 0%, transparent 55%),
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(210, 120, 60, 0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 90%, rgba(180, 80, 40, 0.12) 0%, transparent 55%),
       linear-gradient(180deg, #1e1720 0%, #141018 60%, #110e18 100%);
-  }
-
-  .glow-amber {
-    box-shadow: 0 0 50px rgba(210, 120, 50, 0.30);
-  }
-
-  .glow-orange {
-    box-shadow: 0 0 50px rgba(234, 88, 12, 0.25);
   }
 
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Hover lift */
+  .hover-lift {
+    transition: transform 0.4s var(--lg-bounce);
+  }
+  .hover-lift:hover { transform: translateY(-2px) scale(1.01); }
+  .hover-lift:active { transform: scale(0.96); }
 }
 
 /* Progress ring */

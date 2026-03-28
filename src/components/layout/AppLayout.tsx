@@ -99,26 +99,35 @@ export default function AppLayout({ children }: AppLayoutProps) {
         {children}
       </main>
 
-      {/* Bottom nav — dark pill like the reference */}
+      {/* Bottom nav — CodePen 3-layer glass + dark active pill */}
       <nav className="relative z-20 px-5 pb-6 pt-3">
-        <div className="bg-white/[0.06] backdrop-blur-xl border border-white/[0.07] mx-auto max-w-sm rounded-2xl px-1 py-1.5 flex items-center justify-around shadow-xl shadow-black/50">
-          {TABS.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className="flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all duration-200 relative"
-            >
-              {activeTab === tab.id && (
-                <div className="absolute inset-0 bg-white/[0.07] rounded-xl border border-white/[0.10]" />
-              )}
-              <div className="relative">{tab.icon(activeTab === tab.id)}</div>
-              <span className={`relative text-[10px] font-medium transition-colors ${
-                activeTab === tab.id ? 'text-amber-400' : 'text-white/25'
-              }`}>
-                {tab.label}
-              </span>
-            </button>
-          ))}
+        <div
+          className="lg-container lg-container--rounded mx-auto max-w-sm"
+          style={{ display: 'flex' }}
+        >
+          <div className="lg-filter" />
+          <div className="lg-overlay" />
+          <div className="lg-specular" />
+          {/* Content */}
+          <div className="relative z-10 flex-1 flex items-center justify-around px-1 py-1.5">
+            {TABS.map(tab => {
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  style={{ transition: 'all 0.4s var(--lg-bounce)' }}
+                  className={`flex flex-col items-center gap-1 px-4 py-2 rounded-2xl relative
+                    ${isActive ? 'nav-pill-active -my-1 scale-105' : 'hover:bg-white/[0.05] active:scale-95'}`}
+                >
+                  {tab.icon(isActive)}
+                  <span className={`text-[10px] font-medium ${isActive ? 'text-amber-400' : 'text-white/25'}`}>
+                    {tab.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </nav>
     </div>
