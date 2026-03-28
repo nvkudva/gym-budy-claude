@@ -111,9 +111,9 @@ export default function ProgressDashboard() {
 
       {/* Stats grid */}
       <div className="grid grid-cols-2 gap-3 mb-4">
-        <StatCard label="This Week Volume" value={stats.totalVolume} unit="t" color="from-violet-600 to-purple-800" emoji="⚡" />
-        <StatCard label="Exercises Done" value={stats.uniqueExercises} unit="types" color="from-blue-600 to-cyan-800" emoji="🎯" />
-        <StatCard label="Week Completion" value={`${stats.completionRate}`} unit="%" color="from-green-600 to-teal-800" emoji="✅" />
+        <StatCard label="This Week Volume" value={stats.totalVolume} unit="t" color="from-amber-700 to-orange-800" emoji="⚡" />
+        <StatCard label="Exercises Done" value={stats.uniqueExercises} unit="types" color="from-orange-700 to-amber-800" emoji="🎯" />
+        <StatCard label="Week Completion" value={`${stats.completionRate}`} unit="%" color="from-amber-600 to-yellow-800" emoji="✅" />
         <StatCard label="Total Sessions" value={stats.totalSessions} color="from-orange-600 to-amber-800" emoji="🔥" />
       </div>
 
@@ -134,8 +134,8 @@ export default function ProgressDashboard() {
               />
               <defs>
                 <linearGradient id="progRing2" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#22c55e" />
-                  <stop offset="100%" stopColor="#16a34a" />
+                  <stop offset="0%" stopColor="#d97706" />
+                  <stop offset="100%" stopColor="#ea580c" />
                 </linearGradient>
               </defs>
             </svg>
@@ -160,7 +160,7 @@ export default function ProgressDashboard() {
                       day.isRestDay
                         ? 'bg-white/10'
                         : day.completed
-                          ? 'bg-green-400'
+                          ? 'bg-amber-500'
                           : 'bg-white/20'
                     }`}
                   />
@@ -190,13 +190,13 @@ export default function ProgressDashboard() {
                 <div className="flex-1 w-full flex items-end">
                   <div
                     className={`w-full rounded-t-lg transition-all duration-500 ${
-                      isToday ? 'bg-gradient-to-t from-violet-600 to-violet-400' :
+                      isToday ? 'bg-gradient-to-t from-amber-700 to-amber-500' :
                       day.count > 0 ? 'bg-white/25' : 'bg-white/[0.05]'
                     }`}
                     style={{ height: `${Math.max(heightPct, day.count > 0 ? 8 : 4)}%` }}
                   />
                 </div>
-                <span className={`text-[9px] font-medium ${isToday ? 'text-violet-400' : 'text-white/30'}`}>
+                <span className={`text-[9px] font-medium ${isToday ? 'text-amber-400' : 'text-white/30'}`}>
                   {day.label}
                 </span>
               </div>

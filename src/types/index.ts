@@ -119,57 +119,58 @@ export const GOAL_META: Record<FitnessGoal, { label: string; emoji: string; grad
   'muscle-gain': {
     label: 'Muscle Gain',
     emoji: '💪',
-    gradient: 'from-blue-600 to-violet-600',
+    gradient: 'from-amber-600 to-orange-700',
     description: 'Build lean muscle mass with progressive overload',
   },
   'weight-loss': {
     label: 'Weight Loss',
     emoji: '🔥',
-    gradient: 'from-orange-500 to-red-600',
+    gradient: 'from-orange-600 to-red-700',
     description: 'Burn fat and improve body composition',
   },
   'endurance': {
     label: 'Endurance',
     emoji: '⚡',
-    gradient: 'from-yellow-500 to-orange-500',
+    gradient: 'from-amber-500 to-yellow-700',
     description: 'Build stamina and cardiovascular fitness',
   },
   'general-fitness': {
     label: 'General Fitness',
     emoji: '🏃',
-    gradient: 'from-pink-500 to-purple-600',
+    gradient: 'from-orange-500 to-amber-700',
     description: 'Balanced fitness for overall health',
   },
   'strength': {
     label: 'Strength',
     emoji: '🏋️',
-    gradient: 'from-cyan-500 to-blue-600',
+    gradient: 'from-red-600 to-orange-700',
     description: 'Maximize raw strength and power',
   },
   'running': {
     label: 'Running',
     emoji: '🏅',
-    gradient: 'from-green-500 to-teal-600',
+    gradient: 'from-amber-600 to-orange-600',
     description: 'Improve pace, distance and running form',
   },
 };
 
+// Warm muted gradients matching the dark Oura-style palette
 export const DAY_GRADIENTS = [
-  'from-violet-600/30 to-purple-800/30',
-  'from-blue-600/30 to-cyan-800/30',
-  'from-green-600/30 to-teal-800/30',
-  'from-orange-600/30 to-amber-800/30',
-  'from-pink-600/30 to-rose-800/30',
-  'from-indigo-600/30 to-blue-800/30',
-  'from-teal-600/30 to-green-800/30',
+  'from-amber-800/25 to-orange-900/25',
+  'from-orange-800/25 to-red-900/25',
+  'from-stone-700/25 to-stone-900/25',
+  'from-amber-700/25 to-yellow-900/25',
+  'from-red-800/25 to-orange-900/25',
+  'from-orange-700/25 to-amber-900/25',
+  'from-stone-600/25 to-stone-800/25',
 ];
 
 export const DAY_ACCENT_COLORS = [
-  'text-violet-400',
-  'text-blue-400',
-  'text-green-400',
+  'text-amber-400',
   'text-orange-400',
-  'text-pink-400',
-  'text-indigo-400',
-  'text-teal-400',
+  'text-stone-300',
+  'text-yellow-400',
+  'text-red-400',
+  'text-amber-300',
+  'text-orange-300',
 ];

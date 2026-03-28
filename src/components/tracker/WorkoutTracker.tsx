@@ -119,12 +119,12 @@ export default function WorkoutTracker() {
                 onClick={() => setSelectedDayIndex(day.dayIndex)}
                 className={`flex-shrink-0 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-200 border ${
                   isSelected
-                    ? 'bg-violet-500/30 border-violet-400/50 text-violet-200'
+                    ? 'bg-amber-600/20 border-amber-500/40 text-amber-200'
                     : 'bg-white/[0.04] border-white/10 text-white/40 hover:text-white/60'
                 }`}
               >
                 {day.dayName.slice(0, 3)}
-                {isToday && <span className="ml-1 text-[9px] text-violet-400">•</span>}
+                {isToday && <span className="ml-1 text-[9px] text-amber-400">•</span>}
                 {day.isRestDay && <span className="ml-1">😴</span>}
                 {!day.isRestDay && day.completed && <span className="ml-1">✓</span>}
               </button>
@@ -150,7 +150,7 @@ export default function WorkoutTracker() {
         {!selectedDay.isRestDay && totalCount > 0 && (
           <div className="relative mt-3 h-1.5 bg-white/10 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-violet-400 to-indigo-400 rounded-full transition-all duration-500"
+              className="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full transition-all duration-500"
               style={{ width: `${(completedCount / totalCount) * 100}%` }}
             />
           </div>
@@ -205,10 +205,10 @@ export default function WorkoutTracker() {
           ))}
 
           {selectedDay.completed && (
-            <div className="p-4 rounded-2xl bg-green-500/20 border border-green-500/30 text-center animate-fade-in">
+            <div className="p-4 rounded-2xl bg-amber-600/15 border border-amber-500/25 text-center animate-fade-in">
               <div className="text-2xl mb-1">🎉</div>
-              <div className="text-green-300 font-semibold">Workout Complete!</div>
-              <div className="text-green-400/60 text-sm">Amazing work today!</div>
+              <div className="text-amber-300 font-semibold">Workout Complete!</div>
+              <div className="text-amber-400/60 text-sm">Amazing work today!</div>
             </div>
           )}
         </div>
@@ -236,18 +236,18 @@ function ExerciseBlock({ exercise, exIdx, isActive, onToggle, onCompleteSet, onU
 
   return (
     <div className={`rounded-2xl overflow-hidden border transition-all duration-300 ${
-      exercise.completed ? 'border-green-500/30' : 'border-white/10'
+      exercise.completed ? 'border-amber-500/25' : 'border-white/10'
     }`}>
       {/* Header */}
       <button
         onClick={onToggle}
         className={`w-full p-4 text-left flex items-center justify-between transition-colors ${
-          exercise.completed ? 'bg-green-500/10' : 'bg-white/[0.05]'
+          exercise.completed ? 'bg-white/[0.05]' : 'bg-white/[0.05]'
         }`}
       >
         <div className="flex items-center gap-3">
           <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold ${
-            exercise.completed ? 'bg-green-500/30 text-green-300' : 'bg-white/10 text-white/60'
+            exercise.completed ? 'bg-amber-600/25 text-amber-300' : 'bg-white/10 text-white/60'
           }`}>
             {exercise.completed ? '✓' : exIdx + 1}
           </div>
@@ -286,7 +286,7 @@ function ExerciseBlock({ exercise, exIdx, isActive, onToggle, onCompleteSet, onU
             </div>
             {exercise.sets.map(set => (
               <div key={set.setNumber} className={`grid grid-cols-[40px_1fr_1fr_48px] gap-2 items-center p-2 rounded-xl transition-colors ${
-                set.completed ? 'bg-green-500/10' : 'bg-white/[0.03]'
+                set.completed ? 'bg-white/[0.05]' : 'bg-white/[0.03]'
               }`}>
                 <span className="text-white/50 text-sm font-semibold">{set.setNumber}</span>
                 <input
@@ -308,9 +308,9 @@ function ExerciseBlock({ exercise, exIdx, isActive, onToggle, onCompleteSet, onU
                 {set.completed ? (
                   <button
                     onClick={() => onUncompleteSet(set.setNumber)}
-                    className="w-8 h-8 rounded-lg bg-green-500/20 border border-green-500/40 flex items-center justify-center"
+                    className="w-8 h-8 rounded-lg bg-amber-600/20 border border-amber-500/35 flex items-center justify-center"
                   >
-                    <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </button>
@@ -321,7 +321,7 @@ function ExerciseBlock({ exercise, exIdx, isActive, onToggle, onCompleteSet, onU
                       const r = Number(setReps[set.setNumber] ?? set.plannedReps);
                       onCompleteSet(set.setNumber, w, r);
                     }}
-                    className="w-8 h-8 rounded-lg bg-white/[0.08] border border-white/15 flex items-center justify-center hover:bg-violet-500/30 hover:border-violet-400/50 transition-colors"
+                    className="w-8 h-8 rounded-lg bg-white/[0.08] border border-white/15 flex items-center justify-center hover:bg-amber-600/25 hover:border-amber-500/40 transition-colors"
                   >
                     <svg className="w-4 h-4 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

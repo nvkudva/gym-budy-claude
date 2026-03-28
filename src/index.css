@@ -12,66 +12,56 @@
   body {
     margin: 0;
     padding: 0;
-    background: #0a0a1a;
+    background: #16121e;
     color: white;
     min-height: 100vh;
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
   }
 
-  ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 2px;
-  }
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
 
   input[type='number']::-webkit-inner-spin-button,
-  input[type='number']::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-  }
+  input[type='number']::-webkit-outer-spin-button { -webkit-appearance: none; }
 }
 
 @layer components {
+  /* Dark warm glass — closer to the reference design */
   .glass {
-    @apply bg-white/[0.08] backdrop-blur-xl border border-white/[0.12] rounded-2xl;
+    @apply bg-white/[0.05] backdrop-blur-xl border border-white/[0.08] rounded-2xl;
   }
 
   .glass-sm {
-    @apply bg-white/[0.06] backdrop-blur-md border border-white/[0.10] rounded-xl;
+    @apply bg-white/[0.04] backdrop-blur-md border border-white/[0.07] rounded-xl;
   }
 
   .glass-hover {
-    @apply hover:bg-white/[0.12] hover:border-white/[0.20] transition-all duration-300;
+    @apply hover:bg-white/[0.09] hover:border-white/[0.14] transition-all duration-300;
   }
 
   .glass-card {
-    @apply glass glass-hover shadow-lg shadow-black/20;
+    @apply glass glass-hover shadow-lg shadow-black/40;
   }
 
+  /* Amber/copper primary button */
   .btn-primary {
     @apply px-6 py-3 rounded-2xl font-semibold text-white
-           bg-gradient-to-r from-violet-600 to-indigo-600
-           hover:from-violet-500 hover:to-indigo-500
+           bg-gradient-to-r from-amber-600 to-orange-600
+           hover:from-amber-500 hover:to-orange-500
            active:scale-95 transition-all duration-200
-           shadow-lg shadow-violet-500/30;
+           shadow-lg shadow-amber-600/25;
   }
 
   .btn-glass {
-    @apply px-5 py-2.5 rounded-xl font-medium text-white glass glass-hover
+    @apply px-5 py-2.5 rounded-xl font-medium text-white/80 glass glass-hover
            active:scale-95 transition-all duration-200;
   }
 
   .input-glass {
-    @apply w-full px-4 py-3 rounded-xl bg-white/[0.06] border border-white/[0.12]
-           text-white placeholder-white/30 outline-none
-           focus:border-violet-400/50 focus:bg-white/[0.10]
+    @apply w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.09]
+           text-white placeholder-white/25 outline-none
+           focus:border-amber-500/50 focus:bg-white/[0.08]
            transition-all duration-200;
   }
 
@@ -81,65 +71,31 @@
 
   .tag {
     @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
-           bg-white/10 border border-white/15;
+           bg-white/[0.07] border border-white/[0.10];
   }
 }
 
 @layer utilities {
+  /* Warm dark background — like Oura Ring app */
   .bg-app {
-    background: radial-gradient(ellipse at top left, #1a0533 0%, #0a0a1a 40%, #001833 100%);
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(210, 120, 60, 0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 90%, rgba(180, 80, 40, 0.10) 0%, transparent 55%),
+      linear-gradient(180deg, #1e1720 0%, #141018 60%, #110e18 100%);
   }
 
-  .glow-violet {
-    box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+  .glow-amber {
+    box-shadow: 0 0 50px rgba(210, 120, 50, 0.30);
   }
 
-  .glow-blue {
-    box-shadow: 0 0 40px rgba(59, 130, 246, 0.3);
+  .glow-orange {
+    box-shadow: 0 0 50px rgba(234, 88, 12, 0.25);
   }
 
-  .glow-green {
-    box-shadow: 0 0 40px rgba(34, 197, 94, 0.3);
-  }
-
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }
 
 /* Progress ring */
-.progress-ring {
-  transform: rotate(-90deg);
-}
-
-.progress-ring-fill {
-  transition: stroke-dashoffset 0.8s ease;
-}
-
-/* Chat bubble tail */
-.bubble-user::after {
-  content: '';
-  position: absolute;
-  bottom: 4px;
-  right: -6px;
-  width: 12px;
-  height: 12px;
-  background: inherit;
-  clip-path: polygon(0 0, 0 100%, 100% 100%);
-}
-
-.bubble-ai::after {
-  content: '';
-  position: absolute;
-  bottom: 4px;
-  left: -6px;
-  width: 12px;
-  height: 12px;
-  background: rgba(255,255,255,0.08);
-  clip-path: polygon(100% 0, 0 100%, 100% 100%);
-}
+.progress-ring { transform: rotate(-90deg); }
+.progress-ring-fill { transition: stroke-dashoffset 0.8s ease; }

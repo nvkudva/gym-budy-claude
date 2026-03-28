@@ -2,16 +2,16 @@ import type { WorkoutDay } from '../../types';
 import { DAY_GRADIENTS, DAY_ACCENT_COLORS } from '../../types';
 
 const CATEGORY_COLORS: Record<string, string> = {
-  chest: 'bg-blue-500/20 text-blue-300',
-  back: 'bg-green-500/20 text-green-300',
-  shoulders: 'bg-orange-500/20 text-orange-300',
-  biceps: 'bg-pink-500/20 text-pink-300',
-  triceps: 'bg-violet-500/20 text-violet-300',
-  legs: 'bg-cyan-500/20 text-cyan-300',
-  glutes: 'bg-rose-500/20 text-rose-300',
-  core: 'bg-yellow-500/20 text-yellow-300',
-  cardio: 'bg-red-500/20 text-red-300',
-  'full-body': 'bg-indigo-500/20 text-indigo-300',
+  chest: 'bg-amber-600/20 text-amber-300',
+  back: 'bg-orange-700/20 text-orange-300',
+  shoulders: 'bg-amber-700/20 text-amber-200',
+  biceps: 'bg-orange-600/20 text-orange-300',
+  triceps: 'bg-amber-500/20 text-amber-300',
+  legs: 'bg-orange-800/20 text-orange-200',
+  glutes: 'bg-red-800/20 text-red-300',
+  core: 'bg-amber-800/20 text-yellow-300',
+  cardio: 'bg-orange-700/20 text-orange-400',
+  'full-body': 'bg-amber-700/20 text-amber-300',
 };
 
 interface DayCardProps {
@@ -32,7 +32,7 @@ export default function DayCard({ day, isToday, expanded, onToggle }: DayCardPro
     <div
       className={`relative overflow-hidden rounded-2xl border transition-all duration-300 ${
         isToday
-          ? 'border-white/25 shadow-lg shadow-violet-500/10'
+          ? 'border-white/25 shadow-lg shadow-amber-600/10'
           : 'border-white/10'
       } ${day.completed ? 'opacity-70' : ''}`}
     >
@@ -56,12 +56,12 @@ export default function DayCard({ day, isToday, expanded, onToggle }: DayCardPro
             <div className="flex items-center gap-2">
               <span className="text-white font-semibold text-sm">{day.dayName}</span>
               {isToday && (
-                <span className="text-[10px] font-bold text-violet-300 bg-violet-500/20 px-2 py-0.5 rounded-full uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-amber-300 bg-amber-600/20 px-2 py-0.5 rounded-full uppercase tracking-wider">
                   Today
                 </span>
               )}
               {day.completed && (
-                <span className="text-[10px] font-bold text-green-300 bg-green-500/20 px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-bold text-green-300 bg-amber-600/20 px-2 py-0.5 rounded-full">
                   ✓ Done
                 </span>
               )}
@@ -94,7 +94,7 @@ export default function DayCard({ day, isToday, expanded, onToggle }: DayCardPro
         <div className="relative px-4 pb-3">
           <div className="h-1 bg-white/10 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-violet-400 to-indigo-400 rounded-full transition-all duration-500"
+              className="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full transition-all duration-500"
               style={{ width: `${(completedExercises / totalExercises) * 100}%` }}
             />
           </div>
@@ -114,7 +114,7 @@ export default function DayCard({ day, isToday, expanded, onToggle }: DayCardPro
             >
               <div className="w-5 h-5 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                 {exercise.completed ? (
-                  <svg className="w-3 h-3 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-3 h-3 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                 ) : (

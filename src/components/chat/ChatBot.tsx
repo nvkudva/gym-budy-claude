@@ -74,7 +74,7 @@ export default function ChatBot() {
       {/* Header */}
       <div className="px-4 pt-2 pb-3 flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center shadow-lg shadow-pink-500/30">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-600 to-orange-700 flex items-center justify-center shadow-lg shadow-amber-600/20">
             <span className="text-lg">🤖</span>
           </div>
           <div>
@@ -100,7 +100,7 @@ export default function ChatBot() {
         {/* Welcome */}
         {messages.length === 0 && (
           <div className="animate-fade-in">
-            <div className="glass p-4 rounded-2xl mb-4 bg-gradient-to-br from-pink-500/10 to-rose-600/10 border-pink-500/20">
+            <div className="glass p-4 rounded-2xl mb-4 bg-gradient-to-br from-amber-700/10 to-orange-800/10 border-amber-600/20">
               <div className="text-2xl mb-2">👋</div>
               <div className="text-white font-semibold mb-1">Hey {profile.name}!</div>
               <div className="text-white/60 text-sm leading-relaxed">
@@ -134,7 +134,7 @@ export default function ChatBot() {
         {/* Loading */}
         {loading && (
           <div className="flex items-start gap-2 animate-fade-in">
-            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center flex-shrink-0">
+            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-amber-600 to-orange-700 flex items-center justify-center flex-shrink-0">
               <span className="text-xs">🤖</span>
             </div>
             <div className="glass px-4 py-3 rounded-2xl rounded-tl-sm">
@@ -172,7 +172,7 @@ export default function ChatBot() {
             disabled={!input.trim() || loading}
             className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-200 ${
               input.trim() && !loading
-                ? 'bg-gradient-to-br from-pink-500 to-rose-600 shadow-lg shadow-pink-500/30'
+                ? 'bg-gradient-to-br from-amber-600 to-orange-700 shadow-lg shadow-amber-600/20'
                 : 'bg-white/[0.08]'
             }`}
           >
@@ -226,8 +226,8 @@ function MessageBubble({ message, userName }: { message: ChatMessage; userName: 
       {/* Avatar */}
       <div className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold ${
         isUser
-          ? 'bg-gradient-to-br from-violet-500 to-indigo-600'
-          : 'bg-gradient-to-br from-pink-500 to-rose-600'
+          ? 'bg-gradient-to-br from-amber-600 to-orange-700'
+          : 'bg-gradient-to-br from-amber-600 to-orange-700'
       }`}>
         {isUser ? userName.slice(0, 1).toUpperCase() : '🤖'}
       </div>
@@ -236,11 +236,11 @@ function MessageBubble({ message, userName }: { message: ChatMessage; userName: 
       <div className={`max-w-[78%] ${isUser ? 'items-end' : 'items-start'} flex flex-col gap-1`}>
         <div className={`px-4 py-3 rounded-2xl text-sm leading-relaxed ${
           isUser
-            ? 'bg-gradient-to-br from-violet-600/60 to-indigo-600/60 border border-violet-400/20 rounded-br-sm text-white/90'
+            ? 'bg-gradient-to-br from-amber-700/50 to-orange-800/50 border border-amber-500/20 rounded-br-sm text-white/90'
             : 'glass border-white/10 rounded-bl-sm text-white/80'
-        } ${message.isPlanUpdate ? 'border-green-500/30 bg-green-500/10' : ''}`}>
+        } ${message.isPlanUpdate ? 'border-amber-500/30 bg-amber-600/10' : ''}`}>
           {message.isPlanUpdate && (
-            <div className="flex items-center gap-1.5 mb-2 text-green-400 text-xs font-semibold">
+            <div className="flex items-center gap-1.5 mb-2 text-amber-400 text-xs font-semibold">
               <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>

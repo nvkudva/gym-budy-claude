@@ -76,9 +76,9 @@ export default function OnboardingFlow() {
     <div className="min-h-screen bg-app flex items-center justify-center px-4 py-12">
       {/* Background orbs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-violet-600/20 rounded-full blur-3xl animate-pulse-soft" />
-        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-pink-600/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '2s' }} />
+        <div className="absolute -top-40 -left-40 w-96 h-96 bg-amber-700/15 rounded-full blur-3xl animate-pulse-soft" />
+        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-orange-800/15 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-amber-700/08 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '2s' }} />
       </div>
 
       <div className="relative w-full max-w-lg animate-fade-in">
@@ -106,7 +106,7 @@ export default function OnboardingFlow() {
             <div
               key={s}
               className={`h-1.5 rounded-full transition-all duration-300 ${
-                s === step ? 'w-8 bg-violet-400' : s < step ? 'w-4 bg-violet-600/60' : 'w-4 bg-white/20'
+                s === step ? 'w-8 bg-amber-400' : s < step ? 'w-4 bg-amber-600/50' : 'w-4 bg-white/20'
               }`}
             />
           ))}
@@ -181,7 +181,7 @@ export default function OnboardingFlow() {
                     onClick={() => setGoal(key)}
                     className={`relative p-4 rounded-2xl text-left transition-all duration-200 border ${
                       goal === key
-                        ? 'border-violet-400/60 bg-white/15 scale-[1.02]'
+                        ? 'border-amber-500/50 bg-white/10 scale-[1.02]'
                         : 'border-white/10 bg-white/[0.05] hover:bg-white/10'
                     }`}
                   >
@@ -194,7 +194,7 @@ export default function OnboardingFlow() {
                       <div className="text-white/40 text-xs mt-0.5 leading-tight">{meta.description}</div>
                     </div>
                     {goal === key && (
-                      <div className="absolute top-3 right-3 w-5 h-5 rounded-full bg-violet-500 flex items-center justify-center">
+                      <div className="absolute top-3 right-3 w-5 h-5 rounded-full bg-amber-600 flex items-center justify-center">
                         <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
@@ -223,7 +223,7 @@ export default function OnboardingFlow() {
                       onClick={() => setExperience(opt.value)}
                       className={`w-full px-4 py-3 rounded-xl text-left transition-all duration-200 border ${
                         experience === opt.value
-                          ? 'border-violet-400/60 bg-violet-500/20'
+                          ? 'border-amber-500/50 bg-amber-600/20'
                           : 'border-white/10 bg-white/[0.04] hover:bg-white/[0.08]'
                       }`}
                     >
@@ -233,7 +233,7 @@ export default function OnboardingFlow() {
                           <div className="text-white/40 text-xs">{opt.description}</div>
                         </div>
                         {experience === opt.value && (
-                          <div className="w-5 h-5 rounded-full bg-violet-500 flex items-center justify-center flex-shrink-0">
+                          <div className="w-5 h-5 rounded-full bg-amber-600 flex items-center justify-center flex-shrink-0">
                             <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                             </svg>
@@ -255,7 +255,7 @@ export default function OnboardingFlow() {
                       onClick={() => toggleEquipment(opt.value)}
                       className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 border ${
                         equipment.includes(opt.value)
-                          ? 'border-violet-400/60 bg-violet-500/20 text-white'
+                          ? 'border-amber-500/50 bg-amber-600/20 text-white'
                           : 'border-white/10 bg-white/[0.04] text-white/60 hover:bg-white/[0.08]'
                       }`}
                     >
@@ -269,7 +269,7 @@ export default function OnboardingFlow() {
               {/* Workouts per week */}
               <div>
                 <label className="block text-white/60 text-xs font-medium mb-2 uppercase tracking-wider">
-                  Workouts per Week: <span className="text-violet-400 font-bold">{workoutsPerWeek}</span>
+                  Workouts per Week: <span className="text-amber-400 font-bold">{workoutsPerWeek}</span>
                 </label>
                 <div className="flex gap-2">
                   {[3, 4, 5, 6].map(n => (
@@ -278,7 +278,7 @@ export default function OnboardingFlow() {
                       onClick={() => setWorkoutsPerWeek(n)}
                       className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 border ${
                         workoutsPerWeek === n
-                          ? 'border-violet-400/60 bg-violet-500/20 text-violet-300'
+                          ? 'border-amber-500/50 bg-amber-600/20 text-amber-300'
                           : 'border-white/10 bg-white/[0.04] text-white/60 hover:bg-white/[0.08]'
                       }`}
                     >

@@ -61,8 +61,8 @@ export default function WeeklyPlanView() {
             />
             <defs>
               <linearGradient id="progressGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#8b5cf6" />
-                <stop offset="100%" stopColor="#6366f1" />
+                <stop offset="0%" stopColor="#d97706" />
+                <stop offset="100%" stopColor="#ea580c" />
               </linearGradient>
             </defs>
           </svg>
@@ -74,19 +74,19 @@ export default function WeeklyPlanView() {
       {todayPlan && !todayPlan.isRestDay && !todayPlan.completed && (
         <button
           onClick={() => setActiveTab('workout')}
-          className="w-full mb-4 p-4 rounded-2xl bg-gradient-to-r from-violet-600/40 to-indigo-600/40 border border-violet-400/30 text-left glass-hover animate-slide-up"
+          className="w-full mb-4 p-4 rounded-2xl bg-gradient-to-r from-amber-700/30 to-orange-800/30 border border-amber-500/25 text-left glass-hover animate-slide-up"
         >
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs font-semibold text-violet-300 uppercase tracking-wider">Today</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
+                <span className="text-xs font-semibold text-amber-300 uppercase tracking-wider">Today</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
               </div>
               <div className="text-white font-bold">{todayPlan.focus}</div>
               <div className="text-white/50 text-sm">{todayPlan.exercises.length} exercises</div>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-violet-500/30 flex items-center justify-center">
-              <svg className="w-5 h-5 text-violet-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="w-10 h-10 rounded-xl bg-amber-600/20 flex items-center justify-center">
+              <svg className="w-5 h-5 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
