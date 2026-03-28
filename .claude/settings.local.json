@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm install:*)",
+      "Bash(node -e \":*)",
+      "Bash(VITE_GEMINI_API_KEY=AIzaSyCKy0_59Gh-iVz1s5CJ55ssEFXTZ3zHvt4 npm test)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}
