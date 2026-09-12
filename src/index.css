@@ -278,3 +278,33 @@
 .pb-nav {
   padding-bottom: calc(6.5rem + env(safe-area-inset-bottom));
 }
+
+/* ─── Type scale ────────────────────────────────────────────────────────────
+   Six steps, nothing below 11px (iOS Caption 2 is the floor). Replaces the
+   ad-hoc 8–36px sizes that had every screen inventing its own hierarchy. */
+@layer components {
+  .t-display  { font-size: 28px; line-height: 32px; font-weight: 700; letter-spacing: -0.02em; }
+  .t-title    { font-size: 20px; line-height: 25px; font-weight: 700; letter-spacing: -0.01em; }
+  .t-headline { font-size: 17px; line-height: 22px; font-weight: 600; }
+  .t-body     { font-size: 15px; line-height: 20px; font-weight: 400; }
+  .t-caption  { font-size: 13px; line-height: 18px; font-weight: 500; }
+  .t-micro    { font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+
+  /* HIG minimum hit region. */
+  .tap-44 { min-width: 44px; min-height: 44px; }
+}
+
+/* Light mode: .input-glass was white-on-white, so the weight and reps fields
+   on the workout screen were invisible in one of the two shipped themes. */
+:root[data-theme='light'] .input-glass {
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(42, 31, 24, 0.20);
+  color: var(--ink);
+}
+:root[data-theme='light'] .input-glass::placeholder { color: rgba(42, 31, 24, 0.40); }
+:root[data-theme='light'] .input-glass:focus {
+  background: #ffffff;
+  box-shadow:
+    inset 0 0 0 1px #b45309,
+    0 0 0 3px rgba(180, 83, 9, 0.20);
+}

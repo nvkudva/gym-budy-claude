@@ -118,7 +118,7 @@ export default function WorkoutTracker() {
               <button
                 key={day.dayIndex}
                 onClick={() => setSelectedDayIndex(day.dayIndex)}
-                className={`flex-shrink-0 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-200 border ${
+                className={`flex-shrink-0 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 border ${
                   isSelected
                     ? 'bg-amber-600/20 border-amber-500/40 text-amber-200'
                     : 'bg-white/[0.04] border-white/10 text-white/40 hover:text-white/60'
@@ -279,20 +279,20 @@ function ExerciseBlock({ exercise, exIdx, isActive, onToggle, onCompleteSet, onU
           )}
           <div className="p-3 space-y-2">
             {/* Column headers */}
-            <div className="grid grid-cols-[40px_1fr_1fr_48px] gap-2 px-1">
+            <div className="grid grid-cols-[36px_1fr_1fr_56px] gap-2 px-1">
               <span className="text-white/30 text-[10px] font-medium uppercase">Set</span>
               <span className="text-white/30 text-[10px] font-medium uppercase">Weight (kg)</span>
               <span className="text-white/30 text-[10px] font-medium uppercase">Reps</span>
               <span className="text-white/30 text-[10px] font-medium uppercase">Done</span>
             </div>
             {exercise.sets.map(set => (
-              <div key={set.setNumber} className={`grid grid-cols-[40px_1fr_1fr_48px] gap-2 items-center p-2 rounded-xl transition-colors ${
+              <div key={set.setNumber} className={`grid grid-cols-[36px_1fr_1fr_56px] gap-2 items-center p-2 rounded-xl transition-colors ${
                 set.completed ? 'bg-white/[0.05]' : 'bg-white/[0.03]'
               }`}>
                 <span className="text-white/50 text-sm font-semibold">{set.setNumber}</span>
                 <input
                   type="number"
-                  className="input-glass py-1.5 text-sm text-center"
+                  className="input-glass py-2.5 text-base text-center tap-44"
                   value={setWeights[set.setNumber] ?? (set.completed ? set.weight : set.weight || '')}
                   onChange={e => setSetWeights(prev => ({ ...prev, [set.setNumber]: e.target.value }))}
                   placeholder={set.weight > 0 ? `${set.weight}` : '0'}
@@ -300,7 +300,7 @@ function ExerciseBlock({ exercise, exIdx, isActive, onToggle, onCompleteSet, onU
                 />
                 <input
                   type="number"
-                  className="input-glass py-1.5 text-sm text-center"
+                  className="input-glass py-2.5 text-base text-center tap-44"
                   value={setReps[set.setNumber] ?? (set.completed ? set.actualReps ?? set.plannedReps : set.plannedReps || '')}
                   onChange={e => setSetReps(prev => ({ ...prev, [set.setNumber]: e.target.value }))}
                   placeholder={`${set.plannedReps}`}
@@ -309,7 +309,7 @@ function ExerciseBlock({ exercise, exIdx, isActive, onToggle, onCompleteSet, onU
                 {set.completed ? (
                   <button
                     onClick={() => onUncompleteSet(set.setNumber)}
-                    className="w-8 h-8 rounded-lg bg-amber-600/20 border border-amber-500/35 flex items-center justify-center"
+                    className="w-11 h-11 rounded-xl bg-amber-600/20 border border-amber-500/35 flex items-center justify-center"
                   >
                     <svg className="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -322,10 +322,10 @@ function ExerciseBlock({ exercise, exIdx, isActive, onToggle, onCompleteSet, onU
                       const r = Number(setReps[set.setNumber] ?? set.plannedReps);
                       onCompleteSet(set.setNumber, w, r);
                     }}
-                    className="w-8 h-8 rounded-lg bg-white/[0.08] border border-white/15 flex items-center justify-center hover:bg-amber-600/25 hover:border-amber-500/40 transition-colors"
+                    className="w-11 h-11 rounded-xl bg-white/[0.08] border border-white/25 flex items-center justify-center hover:bg-amber-600/25 hover:border-amber-500/40 transition-colors"
                   >
-                    <svg className="w-4 h-4 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    <svg className="w-5 h-5 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                     </svg>
                   </button>
                 )}

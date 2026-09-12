@@ -74,7 +74,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
       </div>
 
       {/* Header */}
-      <header className="relative z-10 shrink-0 w-full max-w-2xl lg:max-w-4xl mx-auto px-5 pt-[max(1.25rem,env(safe-area-inset-top))] pb-3 flex items-center justify-between">
+      <header className="relative z-10 shrink-0 w-full max-w-[680px] lg:max-w-[960px] mx-auto px-5 pt-[max(1.25rem,env(safe-area-inset-top))] pb-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-600 to-orange-700 flex items-center justify-center shadow-lg shadow-amber-600/20">
             <span className="text-lg">🏋️</span>
@@ -94,14 +94,14 @@ export default function AppLayout({ children }: AppLayoutProps) {
         <div className="flex items-center gap-2">
           <button
             onClick={toggleTheme}
-            className="w-8 h-8 rounded-full glass glass-hover flex items-center justify-center"
+            className="tap-44 rounded-full glass glass-hover flex items-center justify-center"
             title="Toggle theme"
           >
             <span className="text-sm">{theme === 'dark' ? '🌙' : '☀️'}</span>
           </button>
           <button
             onClick={() => setActiveTab('settings')}
-            className="w-8 h-8 rounded-full glass glass-hover flex items-center justify-center"
+            className="tap-44 rounded-full glass glass-hover flex items-center justify-center"
             title="Profile & settings"
           >
             <svg className="w-4 h-4 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -115,7 +115,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
 
       {/* Content */}
       <main className="relative z-10 flex-1 min-h-0">
-        <div className="h-full w-full max-w-2xl lg:max-w-4xl mx-auto">
+        <div className="h-full w-full max-w-[680px] lg:max-w-[960px] mx-auto">
           {children}
         </div>
       </main>

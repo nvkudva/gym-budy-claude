@@ -1,5 +1,5 @@
 // Cache-first for the app shell, network-only for AI calls.
-const CACHE = 'gymbuddy-v1';
+const CACHE = 'gymbuddy-v2';
 const SHELL = ['/', '/index.html', '/manifest.webmanifest', '/favicon.svg'];
 
 self.addEventListener('install', event => {
@@ -21,18 +21,37 @@ self.addEventListener('fetch', event => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return; // never cache AI provider calls
 
-  event.respondWith(
-    caches.match(request).then(cached => {
-      const network = fetch(request)
+  // Navigations go network-first. Cache-first on HTML pins the user to the
+  // shell that was current when they first visited: the stale index.html
+  // keeps pointing at the old hashed bundle, so deploys never reach anyone
+  // who has already opened the app.
+  const isNavigation =
+    request.mode === 'navigate' || request.destination === 'document';
+
+  if (isNavigation) {
+    event.respondWith(
+      fetch(request)
         .then(response => {
-          if (response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE).then(c => c.put(request, copy));
-          }
+          const copy = response.clone();
+          caches.open(CACHE).then(c => c.put('/index.html', copy));
           return response;
         })
-        .catch(() => cached ?? caches.match('/index.html'));
-      return cached ?? network;
+        .catch(() => caches.match(request).then(r => r ?? caches.match('/index.html'))),
+    );
+    return;
+  }
+
+  // Hashed build assets are immutable, so cache-first is safe and fast.
+  event.respondWith(
+    caches.match(request).then(cached => {
+      if (cached) return cached;
+      return fetch(request).then(response => {
+        if (response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE).then(c => c.put(request, copy));
+        }
+        return response;
+      });
     }),
   );
 });

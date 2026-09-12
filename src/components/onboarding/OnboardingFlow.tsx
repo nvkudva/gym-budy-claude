@@ -3,6 +3,8 @@ import type { UserProfile, FitnessGoal, ExperienceLevel, Equipment } from '../..
 import { GOAL_META } from '../../types';
 import { useApp } from '../../context/AppContext';
 import { DEMO_PROFILE, buildDemoPlan, DEMO_PROGRESS, DEMO_RECORDS } from '../../data/demoProfile';
+import { buildStarterPlan } from '../../services/starterPlan';
+import { isAIConfigured } from '../../services/aiConfig';
 import { generateWeeklyPlan } from '../../services/planGenerator';
 
 type Step = 1 | 2 | 3;
@@ -26,6 +28,7 @@ export default function OnboardingFlow() {
   const [step, setStep] = useState<Step>(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [pendingProfile, setPendingProfile] = useState<UserProfile | null>(null);
 
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
@@ -46,24 +49,31 @@ export default function OnboardingFlow() {
     if (!goal || !experience || equipment.length === 0) return;
     setLoading(true);
     setError('');
+    const profile: UserProfile = {
+      id: `user-${Date.now()}`,
+      name,
+      age: Number(age),
+      height: Number(height),
+      weight: Number(weight),
+      goal: goal as FitnessGoal,
+      experience: experience as ExperienceLevel,
+      equipment,
+      workoutsPerWeek,
+      createdAt: new Date().toISOString(),
+    };
+
     try {
-      const profile: UserProfile = {
-        id: `user-${Date.now()}`,
-        name,
-        age: Number(age),
-        height: Number(height),
-        weight: Number(weight),
-        goal: goal as FitnessGoal,
-        experience: experience as ExperienceLevel,
-        equipment,
-        workoutsPerWeek,
-        createdAt: new Date().toISOString(),
-      };
+      // With no provider configured an AI call can only fail, so go straight
+      // to the local generator rather than making the user watch a fetch error.
+      if (!isAIConfigured()) {
+        seedProfile({ profile, plan: buildStarterPlan(profile) });
+        return;
+      }
       const plan = await generateWeeklyPlan(profile);
       seedProfile({ profile, plan });
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err);
-      setError(`Error: ${msg}`);
+    } catch {
+      setPendingProfile(profile);
+      setError("We couldn't reach your AI provider just now.");
       setLoading(false);
     }
   }
@@ -303,8 +313,28 @@ export default function OnboardingFlow() {
               </div>
 
               {error && (
-                <div className="p-3 rounded-xl bg-red-500/20 border border-red-500/30 text-red-300 text-sm">
-                  {error}
+                <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30">
+                  <div className="t-headline text-white mb-1">{error}</div>
+                  <p className="t-body text-white/55 mb-3">
+                    You can start on a plan built from your goal and equipment, and switch
+                    to AI-generated plans once a provider is set up in Settings.
+                  </p>
+                  <div className="flex gap-2">
+                    <button
+                      className="tap-44 flex-1 px-4 rounded-xl bg-amber-500 text-stone-950 t-headline"
+                      onClick={() => {
+                        if (pendingProfile) seedProfile({ profile: pendingProfile, plan: buildStarterPlan(pendingProfile) });
+                      }}
+                    >
+                      Use a starter plan
+                    </button>
+                    <button
+                      className="tap-44 flex-1 px-4 rounded-xl bg-white/10 text-white t-headline"
+                      onClick={() => { setError(''); handleFinish(); }}
+                    >
+                      Try again
+                    </button>
+                  </div>
                 </div>
               )}
 

@@ -44,7 +44,7 @@ export default function ProgressDashboard() {
     });
 
     return {
-      totalVolume: Math.round(totalVolume / 1000), // to tonnes
+      totalVolume, // kg; formatted at render
       uniqueExercises,
       completionRate,
       completedDays,
@@ -111,7 +111,13 @@ export default function ProgressDashboard() {
 
       {/* Stats grid */}
       <div className="grid grid-cols-2 gap-3 mb-4">
-        <StatCard label="This Week Volume" value={stats.totalVolume} unit="t" color="from-amber-700 to-orange-800" emoji="⚡" />
+        <StatCard
+          label="This Week Volume"
+          value={stats.totalVolume >= 1000 ? (stats.totalVolume / 1000).toFixed(1) : stats.totalVolume}
+          unit={stats.totalVolume >= 1000 ? 't' : 'kg'}
+          color="from-amber-700 to-orange-800"
+          emoji="⚡"
+        />
         <StatCard label="Exercises Done" value={stats.uniqueExercises} unit="types" color="from-orange-700 to-amber-800" emoji="🎯" />
         <StatCard label="Week Completion" value={`${stats.completionRate}`} unit="%" color="from-amber-600 to-yellow-800" emoji="✅" />
         <StatCard label="Total Sessions" value={stats.totalSessions} color="from-orange-600 to-amber-800" emoji="🔥" />
@@ -141,7 +147,7 @@ export default function ProgressDashboard() {
             </svg>
             <div className="relative text-center">
               <div className="text-white font-bold text-xl leading-none">{stats.completionRate}%</div>
-              <div className="text-white/30 text-[9px]">complete</div>
+              <div className="text-white/30 t-caption">complete</div>
             </div>
           </div>
           <div className="flex-1">
@@ -169,7 +175,7 @@ export default function ProgressDashboard() {
             )}
             <div className="flex justify-between mt-1">
               {plan?.days.map(d => (
-                <span key={d.dayIndex} className="text-white/20 text-[8px] flex-1 text-center">
+                <span key={d.dayIndex} className="text-white/25 t-micro flex-1 text-center">
                   {d.dayName.slice(0, 1)}
                 </span>
               ))}
@@ -181,13 +187,13 @@ export default function ProgressDashboard() {
       {/* 7-day volume bars */}
       <div className="glass p-4 rounded-2xl mb-4">
         <div className="text-white font-semibold text-sm mb-3">Last 7 Days</div>
-        <div className="flex items-end gap-2 h-20">
+        <div className="flex items-stretch gap-2 h-24">
           {last7Days.map((day, i) => {
             const heightPct = maxVolume > 0 ? (day.volume / maxVolume) * 100 : 0;
             const isToday = i === 6;
             return (
-              <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                <div className="flex-1 w-full flex items-end">
+              <div key={i} className="flex-1 h-full flex flex-col items-center gap-1">
+                <div className="flex-1 min-h-0 w-full flex items-end">
                   <div
                     className={`w-full rounded-t-lg transition-all duration-500 ${
                       isToday ? 'bg-gradient-to-t from-amber-700 to-amber-500' :
@@ -196,7 +202,7 @@ export default function ProgressDashboard() {
                     style={{ height: `${Math.max(heightPct, day.count > 0 ? 8 : 4)}%` }}
                   />
                 </div>
-                <span className={`text-[9px] font-medium ${isToday ? 'text-amber-400' : 'text-white/30'}`}>
+                <span className={`t-caption ${isToday ? 'text-amber-400' : 'text-white/30'}`}>
                   {day.label}
                 </span>
               </div>

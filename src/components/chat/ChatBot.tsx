@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import type { ChatMessage } from '../../types';
 import { sendChatMessage } from '../../services/chatService';
+import { loadAIConfig, isAIConfigured } from '../../services/aiConfig';
 
 const SUGGESTED_PROMPTS = [
   "What should I eat before a workout?",
@@ -13,9 +14,15 @@ const SUGGESTED_PROMPTS = [
 ];
 
 export default function ChatBot() {
-  const { profile, plan, messages, addMessage, clearChat, setPlan } = useApp();
+  const { profile, plan, messages, addMessage, clearChat, setPlan, setActiveTab } = useApp();
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<{ message: string; retry: string } | null>(null);
+
+  // The header must not assert availability it has not checked.
+  const aiConfig = loadAIConfig();
+  const connected = isAIConfigured(aiConfig);
+  const providerLabel = aiConfig.provider === 'local' ? 'the local model' : 'OpenRouter';
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -38,6 +45,7 @@ export default function ChatBot() {
 
     addMessage(userMsg);
     setInput('');
+    setError(null);
     setLoading(true);
 
     try {
@@ -57,13 +65,12 @@ export default function ChatBot() {
         setPlan(response.updatedPlan);
       }
     } catch (err) {
-      const errMsg: ChatMessage = {
-        id: `msg-err-${Date.now()}`,
-        role: 'assistant',
-        content: '⚠️ Something went wrong. Please check your API key and try again.',
-        timestamp: new Date().toISOString(),
-      };
-      addMessage(errMsg);
+      setError({
+        message: connected
+          ? `${providerLabel} did not answer. It may be rate-limited or temporarily down.`
+          : 'AI Coach isn\'t connected yet. Add a provider to start chatting.',
+        retry: content,
+      });
     } finally {
       setLoading(false);
     }
@@ -80,8 +87,8 @@ export default function ChatBot() {
           <div>
             <div className="text-white font-bold text-sm">AI Coach</div>
             <div className="flex items-center gap-1.5">
-              <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-white/40 text-xs">Always available</span>
+              <div className={`w-1.5 h-1.5 rounded-full ${connected ? 'bg-green-400' : 'bg-amber-400'}`} />
+              <span className="text-white/40 t-caption">{connected ? 'Ready' : 'Not connected'}</span>
             </div>
           </div>
         </div>
@@ -96,7 +103,7 @@ export default function ChatBot() {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto no-scrollbar px-4 space-y-3">
+      <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar px-5 space-y-3">
         {/* Welcome */}
         {messages.length === 0 && (
           <div className="animate-fade-in">
@@ -151,7 +158,34 @@ export default function ChatBot() {
       </div>
 
       {/* Input */}
-      <div className="flex-shrink-0 px-4 pb-nav pt-3 border-t border-white/[0.06]">
+      {error && (
+        <div className="flex-shrink-0 px-5 pb-3">
+          <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4">
+            <div className="t-headline text-white mb-1">
+              {connected ? 'The coach could not answer' : "AI Coach isn't connected"}
+            </div>
+            <p className="t-body text-white/55 mb-3">{error.message}</p>
+            <div className="flex gap-2">
+              {!connected && (
+                <button
+                  onClick={() => setActiveTab('settings')}
+                  className="tap-44 flex-1 px-4 rounded-xl bg-amber-500 text-stone-950 t-headline"
+                >
+                  Set up AI provider
+                </button>
+              )}
+              <button
+                onClick={() => { const t = error.retry; setError(null); handleSend(t); }}
+                className="tap-44 flex-1 px-4 rounded-xl bg-white/10 text-white t-headline"
+              >
+                Retry
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="flex-shrink-0 px-5 pb-nav pt-3 border-t border-white/[0.06]">
         <div className="flex gap-2 items-end">
           <input
             ref={inputRef}
