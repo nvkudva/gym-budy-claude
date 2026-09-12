@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { UserProfile, FitnessGoal, ExperienceLevel, Equipment } from '../../types';
 import { GOAL_META } from '../../types';
 import { useApp } from '../../context/AppContext';
+import { DEMO_PROFILE, buildDemoPlan, DEMO_PROGRESS, DEMO_RECORDS } from '../../data/demoProfile';
 import { generateWeeklyPlan } from '../../services/planGenerator';
 
 type Step = 1 | 2 | 3;
@@ -21,7 +22,7 @@ const EXPERIENCE_OPTIONS: { value: ExperienceLevel; label: string; description: 
 ];
 
 export default function OnboardingFlow() {
-  const { setProfile, setPlan } = useApp();
+  const { seedProfile, profiles, switchProfile } = useApp();
   const [step, setStep] = useState<Step>(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -59,13 +60,26 @@ export default function OnboardingFlow() {
         createdAt: new Date().toISOString(),
       };
       const plan = await generateWeeklyPlan(profile);
-      setProfile(profile);
-      setPlan(plan);
+      seedProfile({ profile, plan });
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       setError(`Error: ${msg}`);
       setLoading(false);
     }
+  }
+
+  function loadDemo() {
+    const existing = profiles.find(p => p.id === DEMO_PROFILE.id);
+    if (existing) {
+      switchProfile(existing.id);
+      return;
+    }
+    seedProfile({
+      profile: DEMO_PROFILE,
+      plan: buildDemoPlan(),
+      progress: DEMO_PROGRESS,
+      records: DEMO_RECORDS,
+    });
   }
 
   const canStep1 = name.trim() && Number(age) > 0 && Number(height) > 0 && Number(weight) > 0;
@@ -317,6 +331,17 @@ export default function OnboardingFlow() {
             </div>
           )}
         </div>
+
+        {step === 1 && (
+          <div className="text-center mt-5">
+            <button
+              onClick={loadDemo}
+              className="text-white/40 hover:text-amber-400 text-xs underline underline-offset-4 transition"
+            >
+              Skip setup — explore with the demo user
+            </button>
+          </div>
+        )}
 
         {/* Footer */}
         <p className="text-center text-white/20 text-xs mt-6">

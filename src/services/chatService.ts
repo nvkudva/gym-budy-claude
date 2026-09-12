@@ -1,4 +1,4 @@
-import { callGemini } from './gemini';
+import { callAI } from './aiClient';
 import type { UserProfile, WeeklyPlan, ChatMessage } from '../types';
 import { generateWeeklyPlan } from './planGenerator';
 
@@ -60,7 +60,7 @@ export async function sendChatMessage(
     content: m.content,
   }));
 
-  const rawResponse = await callGemini(systemPrompt, userMessage, geminiHistory);
+  const rawResponse = await callAI(systemPrompt, userMessage, geminiHistory);
 
   // Check if plan update was requested
   const planUpdateMatch = rawResponse.match(/PLAN_UPDATE_REQUESTED:\s*(.+?)(?:\n|$)/i);

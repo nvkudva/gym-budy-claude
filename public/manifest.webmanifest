@@ -1,0 +1,14 @@
+{
+  "name": "Gym Buddy",
+  "short_name": "GymBuddy",
+  "description": "AI personal trainer: weekly workout plans, set-by-set tracking and a chat coach.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#16121e",
+  "theme_color": "#16121e",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

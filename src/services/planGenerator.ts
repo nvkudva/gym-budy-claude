@@ -1,4 +1,4 @@
-import { callGemini } from './gemini';
+import { callAI } from './aiClient';
 import type { UserProfile, WeeklyPlan, WorkoutDay, DailyExercise, WorkoutSet } from '../types';
 import { EXERCISES } from '../data/exercises';
 
@@ -102,7 +102,7 @@ export async function generateWeeklyPlan(
   customRequest?: string
 ): Promise<WeeklyPlan> {
   const prompt = buildPlanPrompt(profile, customRequest);
-  const raw = await callGemini(PLAN_SYSTEM_PROMPT, prompt);
+  const raw = await callAI(PLAN_SYSTEM_PROMPT, prompt);
   const jsonStr = extractJsonObject(raw);
 
   const parsed = JSON.parse(jsonStr) as {

@@ -11,3 +11,11 @@ createRoot(document.getElementById('root')!).render(
     </AppProvider>
   </StrictMode>,
 )
+
+// Register the service worker in production only — in dev it would serve a
+// stale shell over Vite's HMR.
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}

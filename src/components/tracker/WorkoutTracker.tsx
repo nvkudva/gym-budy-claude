@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import type { WorkoutDay, DailyExercise, WorkoutSet } from '../../types';
-import { DAY_GRADIENTS, DAY_ACCENT_COLORS } from '../../types';
+import { dayGradients, DAY_ACCENT_COLORS } from '../../types';
 
 const CATEGORY_EMOJI: Record<string, string> = {
   chest: '🫁', back: '🦅', shoulders: '🏔️', biceps: '💪', triceps: '🦾',
@@ -9,7 +9,7 @@ const CATEGORY_EMOJI: Record<string, string> = {
 };
 
 export default function WorkoutTracker() {
-  const { plan, setPlan, addProgress, updateRecord, profile } = useApp();
+  const { plan, setPlan, addProgress, updateRecord, profile, theme } = useApp();
 
   // Figure out today's day (0=Mon)
   const todayIndex = (new Date().getDay() + 6) % 7;
@@ -99,7 +99,8 @@ export default function WorkoutTracker() {
     setTimerInterval(interval);
   }
 
-  const gradient = DAY_GRADIENTS[selectedDay.dayIndex % DAY_GRADIENTS.length];
+  const gradients = dayGradients(theme);
+  const gradient = gradients[selectedDay.dayIndex % gradients.length];
   const accentColor = DAY_ACCENT_COLORS[selectedDay.dayIndex % DAY_ACCENT_COLORS.length];
 
   const completedCount = selectedDay.exercises.filter(e => e.completed).length;

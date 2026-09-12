@@ -155,7 +155,7 @@ export const GOAL_META: Record<FitnessGoal, { label: string; emoji: string; grad
 };
 
 // Warm muted gradients matching the dark Oura-style palette
-export const DAY_GRADIENTS = [
+export const DAY_GRADIENTS_DARK = [
   'from-amber-800/25 to-orange-900/25',
   'from-orange-800/25 to-red-900/25',
   'from-stone-700/25 to-stone-900/25',
@@ -164,6 +164,21 @@ export const DAY_GRADIENTS = [
   'from-orange-700/25 to-amber-900/25',
   'from-stone-600/25 to-stone-800/25',
 ];
+
+// Paper-tinted equivalents; the dark set turns muddy on a light ground
+export const DAY_GRADIENTS_LIGHT = [
+  'from-amber-200/50 to-orange-200/40',
+  'from-orange-200/50 to-red-200/40',
+  'from-stone-200/60 to-stone-300/40',
+  'from-amber-200/50 to-yellow-200/40',
+  'from-red-200/50 to-orange-200/40',
+  'from-orange-200/50 to-amber-200/40',
+  'from-stone-200/60 to-stone-300/40',
+];
+
+export function dayGradients(theme: 'dark' | 'light') {
+  return theme === 'light' ? DAY_GRADIENTS_LIGHT : DAY_GRADIENTS_DARK;
+}
 
 export const DAY_ACCENT_COLORS = [
   'text-amber-400',

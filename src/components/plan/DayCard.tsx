@@ -1,5 +1,6 @@
 import type { WorkoutDay } from '../../types';
-import { DAY_GRADIENTS, DAY_ACCENT_COLORS } from '../../types';
+import { useApp } from '../../context/AppContext';
+import { dayGradients, DAY_ACCENT_COLORS } from '../../types';
 
 const CATEGORY_COLORS: Record<string, string> = {
   chest: 'bg-amber-600/20 text-amber-300',
@@ -22,7 +23,9 @@ interface DayCardProps {
 }
 
 export default function DayCard({ day, isToday, expanded, onToggle }: DayCardProps) {
-  const gradient = DAY_GRADIENTS[day.dayIndex % DAY_GRADIENTS.length];
+  const { theme } = useApp();
+  const gradients = dayGradients(theme);
+  const gradient = gradients[day.dayIndex % gradients.length];
   const accentColor = DAY_ACCENT_COLORS[day.dayIndex % DAY_ACCENT_COLORS.length];
 
   const completedExercises = day.exercises.filter(e => e.completed).length;
