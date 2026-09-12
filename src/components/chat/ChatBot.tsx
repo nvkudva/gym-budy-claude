@@ -151,7 +151,7 @@ export default function ChatBot() {
       </div>
 
       {/* Input */}
-      <div className="flex-shrink-0 px-4 pb-2 pt-3 border-t border-white/[0.06]">
+      <div className="flex-shrink-0 px-4 pb-nav pt-3 border-t border-white/[0.06]">
         <div className="flex gap-2 items-end">
           <input
             ref={inputRef}

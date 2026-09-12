@@ -39,7 +39,7 @@ export default function SettingsView() {
   };
 
   return (
-    <div className="h-full overflow-y-auto no-scrollbar px-5 pb-28">
+    <div className="h-full overflow-y-auto no-scrollbar px-5 pb-nav">
       <h1 className="text-white text-2xl font-bold mb-1">Profile &amp; Settings</h1>
       <p className="text-white/35 text-xs mb-6">Tune your profile, appearance and AI provider</p>
 

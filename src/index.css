@@ -273,3 +273,8 @@
 :root[data-theme='light'] .text-amber-300 { color: #c2620c; }
 :root[data-theme='light'] .text-orange-400 { color: #c2410c; }
 :root[data-theme='light'] .text-stone-300 { color: #57534e; }
+
+/* Clears the fixed tab bar: bar height + its safe-area padding. */
+.pb-nav {
+  padding-bottom: calc(6.5rem + env(safe-area-inset-bottom));
+}

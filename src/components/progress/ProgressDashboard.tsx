@@ -83,7 +83,7 @@ export default function ProgressDashboard() {
   const maxVolume = Math.max(...last7Days.map(d => d.volume), 1);
 
   return (
-    <div className="h-full overflow-y-auto no-scrollbar px-4 pb-6 animate-fade-in">
+    <div className="h-full overflow-y-auto no-scrollbar px-4 pb-nav animate-fade-in">
       <div className="pt-2 pb-4">
         <h2 className="text-white font-bold text-xl">Your Progress</h2>
         <p className="text-white/40 text-sm">Track your fitness journey</p>

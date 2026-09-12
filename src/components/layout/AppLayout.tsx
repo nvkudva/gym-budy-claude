@@ -66,7 +66,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
   const goalMeta = profile ? GOAL_META[profile.goal] : null;
 
   return (
-    <div className="min-h-screen bg-app flex flex-col">
+    <div className="h-[100dvh] bg-app flex flex-col overflow-hidden">
       {/* Ambient warm orbs — subtle, like the reference */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/3 -right-32 w-72 h-72 bg-amber-700/10 rounded-full blur-3xl" />
@@ -74,7 +74,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
       </div>
 
       {/* Header */}
-      <header className="relative z-10 px-5 pt-5 pb-3 flex items-center justify-between">
+      <header className="relative z-10 shrink-0 w-full max-w-2xl lg:max-w-4xl mx-auto px-5 pt-[max(1.25rem,env(safe-area-inset-top))] pb-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-600 to-orange-700 flex items-center justify-center shadow-lg shadow-amber-600/20">
             <span className="text-lg">🏋️</span>
@@ -114,14 +114,19 @@ export default function AppLayout({ children }: AppLayoutProps) {
       </header>
 
       {/* Content */}
-      <main className="relative z-10 flex-1 overflow-hidden">
-        {children}
+      <main className="relative z-10 flex-1 min-h-0">
+        <div className="h-full w-full max-w-2xl lg:max-w-4xl mx-auto">
+          {children}
+        </div>
       </main>
 
       {/* Bottom nav — CodePen 3-layer glass + dark active pill */}
-      <nav className="relative z-20 px-5 pb-6 pt-3">
+      <nav
+        className="fixed inset-x-0 bottom-0 z-20 px-5 pt-3 pointer-events-none"
+        style={{ paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))' }}
+      >
         <div
-          className="lg-container lg-container--rounded mx-auto max-w-md"
+          className="lg-container lg-container--rounded mx-auto max-w-md pointer-events-auto"
           style={{ display: 'flex' }}
         >
           <div className="lg-filter" />

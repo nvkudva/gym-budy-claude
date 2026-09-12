@@ -107,7 +107,7 @@ export default function WorkoutTracker() {
   const totalCount = selectedDay.exercises.length;
 
   return (
-    <div className="h-full overflow-y-auto no-scrollbar animate-fade-in">
+    <div className="h-full overflow-y-auto no-scrollbar pb-nav animate-fade-in">
       {/* Day selector */}
       <div className="px-4 pt-2 pb-3">
         <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">

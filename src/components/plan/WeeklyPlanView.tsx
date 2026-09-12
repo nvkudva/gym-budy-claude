@@ -35,7 +35,7 @@ export default function WeeklyPlanView() {
   const offset = circumference - (completionPct / 100) * circumference;
 
   return (
-    <div className="h-full overflow-y-auto no-scrollbar px-4 pb-4 animate-fade-in">
+    <div className="h-full overflow-y-auto no-scrollbar px-4 pb-nav animate-fade-in">
       {/* Week header */}
       <div className="flex items-center justify-between mb-4 pt-2">
         <div>
@@ -95,8 +95,9 @@ export default function WeeklyPlanView() {
         </button>
       )}
 
-      {/* Days grid */}
-      <div className="space-y-3">
+      {/* Days: one column on phones, two on wide screens so the week reads
+          as a grid instead of a long ribbon with a dead second column. */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-start">
         {plan.days.map((day) => (
           <DayCard
             key={day.dayIndex}
@@ -112,7 +113,7 @@ export default function WeeklyPlanView() {
       <button
         onClick={handleRegenerate}
         disabled={regenerating}
-        className="w-full mt-5 py-3.5 rounded-2xl border border-white/15 bg-white/[0.04] hover:bg-white/[0.08] text-white/50 hover:text-white/80 text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2"
+        className="w-full mt-5 lg:max-w-sm lg:mx-auto py-3.5 rounded-2xl border border-white/15 bg-white/[0.04] hover:bg-white/[0.08] text-white/50 hover:text-white/80 text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2"
       >
         {regenerating ? (
           <>
